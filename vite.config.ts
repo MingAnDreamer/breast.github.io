@@ -1,15 +1,13 @@
-import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
-import { inspectAttr } from 'kimi-plugin-inspect-react'
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/breast.github.io/',
-  plugins: [inspectAttr(), react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-});
+  // HashRouter 不需要 base，直接留空，彻底避免路径错误
+  base: '',
+  plugins: [react()],
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true
+  }
+})
