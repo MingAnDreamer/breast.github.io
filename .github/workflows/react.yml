@@ -28,7 +28,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      # 关键：给 vite 二进制文件添加执行权限
+      - name: Fix vite permission
+        run: chmod +x ./node_modules/.bin/vite
 
       - name: Build
         run: npm run build
@@ -44,6 +48,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+      id-token: write
     runs-on: ubuntu-latest
     needs: build
     steps:
